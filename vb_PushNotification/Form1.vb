@@ -85,7 +85,7 @@ Public Class Form1
 
     Async Sub SignalR()
         Dim client As HttpClient = New HttpClient()
-        client.BaseAddress = New Uri("https://localhost:5001/chatHub")
+        client.BaseAddress = New Uri("https://fcsignalrserver.azurewebsites.net/chatHub")
         _connection = New HubConnectionBuilder().WithUrl(client.BaseAddress).Build()
         _connection.[On](Of String, String, Long)("Broadcast", AddressOf BroadcastMessage)
         Await _connection.StartAsync()

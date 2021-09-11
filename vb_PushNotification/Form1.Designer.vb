@@ -38,7 +38,7 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(46, 39)
+        Me.Label1.Location = New System.Drawing.Point(13, 19)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(49, 20)
         Me.Label1.TabIndex = 0
@@ -46,14 +46,14 @@ Partial Class Form1
         '
         'txtNama
         '
-        Me.txtNama.Location = New System.Drawing.Point(157, 32)
+        Me.txtNama.Location = New System.Drawing.Point(124, 12)
         Me.txtNama.Name = "txtNama"
         Me.txtNama.Size = New System.Drawing.Size(394, 27)
         Me.txtNama.TabIndex = 1
         '
         'btnInput
         '
-        Me.btnInput.Location = New System.Drawing.Point(157, 118)
+        Me.btnInput.Location = New System.Drawing.Point(17, 58)
         Me.btnInput.Name = "btnInput"
         Me.btnInput.Size = New System.Drawing.Size(94, 29)
         Me.btnInput.TabIndex = 2
@@ -62,7 +62,7 @@ Partial Class Form1
         '
         'btnEdit
         '
-        Me.btnEdit.Location = New System.Drawing.Point(257, 118)
+        Me.btnEdit.Location = New System.Drawing.Point(117, 58)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.Size = New System.Drawing.Size(94, 29)
         Me.btnEdit.TabIndex = 2
@@ -71,7 +71,7 @@ Partial Class Form1
         '
         'btnHapus
         '
-        Me.btnHapus.Location = New System.Drawing.Point(357, 118)
+        Me.btnHapus.Location = New System.Drawing.Point(217, 58)
         Me.btnHapus.Name = "btnHapus"
         Me.btnHapus.Size = New System.Drawing.Size(94, 29)
         Me.btnHapus.TabIndex = 2
@@ -80,7 +80,7 @@ Partial Class Form1
         '
         'btnTutup
         '
-        Me.btnTutup.Location = New System.Drawing.Point(457, 118)
+        Me.btnTutup.Location = New System.Drawing.Point(317, 58)
         Me.btnTutup.Name = "btnTutup"
         Me.btnTutup.Size = New System.Drawing.Size(94, 29)
         Me.btnTutup.TabIndex = 2
@@ -90,18 +90,21 @@ Partial Class Form1
         'dvT0Karyawan
         '
         Me.dvT0Karyawan.AllowUserToOrderColumns = True
+        Me.dvT0Karyawan.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.dvT0Karyawan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dvT0Karyawan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dvT0Karyawan.Location = New System.Drawing.Point(157, 188)
+        Me.dvT0Karyawan.GridColor = System.Drawing.SystemColors.ButtonShadow
+        Me.dvT0Karyawan.Location = New System.Drawing.Point(12, 111)
         Me.dvT0Karyawan.Name = "dvT0Karyawan"
         Me.dvT0Karyawan.RowHeadersWidth = 51
         Me.dvT0Karyawan.RowTemplate.Height = 29
-        Me.dvT0Karyawan.Size = New System.Drawing.Size(1671, 344)
+        Me.dvT0Karyawan.Size = New System.Drawing.Size(1816, 344)
         Me.dvT0Karyawan.TabIndex = 3
         '
         'txtId
         '
         Me.txtId.AutoSize = True
-        Me.txtId.Location = New System.Drawing.Point(615, 39)
+        Me.txtId.Location = New System.Drawing.Point(582, 19)
         Me.txtId.Name = "txtId"
         Me.txtId.Size = New System.Drawing.Size(22, 20)
         Me.txtId.TabIndex = 4

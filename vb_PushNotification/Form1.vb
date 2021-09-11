@@ -42,8 +42,6 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         KondisiAwal()
         SignalR()
-        Dim MyValue As Integer
-        MyValue = Int((6 * Rnd()) + 1)    ' Generate random value between 1 and 6.
     End Sub
 
     Private Sub btnInput_Click(sender As Object, e As EventArgs) Handles btnInput.Click
@@ -53,19 +51,11 @@ Public Class Form1
         Dim Simpan As String = "Insert into T1Karyawan (Idkaryawan,NamaLengkap) values('" & MyValue & "' ,'" & txtNama.Text & "')"
         Cmd = New SqlCommand(Simpan, Conn)
         Cmd.ExecuteNonQuery()
-        Call Send(App, "insert", Title, MyValue)
+        Call Send(App, "Notifikasi", Title, MyValue)
         MessageBox.Show("Data Berhasil Disimpan")
         Call KondisiAwal()
     End Sub
-    Private Async Function Send(ByVal app As String, ByVal method As String, ByVal NamaTabel As String, ByVal IdKaryawan As Long) As Task
-        Try
-            Dim msg = $"{app}_{NamaTabel} {method}"
-            Call SignalR()
-            Await _connection.SendAsync("Broadcast", msg, method, IdKaryawan)
-        Catch e As Exception
-            Dim ex = e.Message.ToString()
-        End Try
-    End Function
+
 
 
     Private Sub dvT0Karyawan_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dvT0Karyawan.CellDoubleClick
@@ -78,11 +68,19 @@ Public Class Form1
         Dim Edit As String = "update T1Karyawan set NamaLengkap = '" & txtNama.Text & "' where IdKaryawan = '" & txtId.Text & "'"
         Cmd = New SqlCommand(Edit, Conn)
         Cmd.ExecuteNonQuery()
-        Call Send(App, "update", Title, txtId.Text)
+        Call Send(App, "Notifikasi", Title, txtId.Text)
         MessageBox.Show("Data '" & txtNama.Text & "' Berhasil Di Edit")
         Call KondisiAwal()
     End Sub
 
+    Private Async Function Send(ByVal app As String, ByVal method As String, ByVal NamaTabel As String, ByVal IdKaryawan As Long) As Task
+        Try
+            Dim msg = $"{app}_{NamaTabel} {method}"
+            Await _connection.SendAsync("Broadcast", msg, method, IdKaryawan)
+        Catch e As Exception
+            Dim ex = e.Message.ToString()
+        End Try
+    End Function
     Async Sub SignalR()
         Dim client As HttpClient = New HttpClient()
         client.BaseAddress = New Uri("https://fcsignalrserver.azurewebsites.net/chatHub")
@@ -105,7 +103,7 @@ Public Class Form1
         Dim hapus As String = "delete From T1Karyawan  where IdKaryawan='" & txtId.Text & "'"
         CMD = New SqlCommand(hapus, Conn)
         CMD.ExecuteNonQuery()
-        Call Send(App, "delete", Title, txtId.Text)
+        Call Send(App, "Notifikasi", Title, txtId.Text)
         MessageBox.Show("Data '" & txtNama.Text & "' Berhasil diHapus")
         Call KondisiAwal()
     End Sub

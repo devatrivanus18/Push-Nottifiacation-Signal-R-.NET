@@ -1,10 +1,13 @@
-﻿Imports Microsoft.AspNetCore.SignalR.Client
+﻿Imports System.Net.Http
+Imports Microsoft.AspNetCore.SignalR.Client
 
 Public Class SignalRService
     Private WithEvents hubConnection As HubConnection
     Public _divisi As String = ""
     Public Sub New() ''construnctor
-        hubConnection = New HubConnectionBuilder().WithUrl("https://newfcsignalr.azurewebsites.net/chatHub").Build()
+        Dim client As HttpClient = New HttpClient()
+        client.BaseAddress = New Uri("https://newfcsignalr.azurewebsites.net/chatHub")
+        hubConnection = New HubConnectionBuilder().WithUrl(client.BaseAddress).WithAutomaticReconnect().Build()
     End Sub
     'CONNECT KE SIGNALR'
     Public Async Function Connect(divisi As String) As Task

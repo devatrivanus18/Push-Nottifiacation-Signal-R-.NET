@@ -38,7 +38,7 @@ Public Class Form1
         txtNama.Text = Nothing
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Control.CheckForIllegalCrossThreadCalls = False
+        DataGridView.CheckForIllegalCrossThreadCalls = False
         ConnectSignalR()
         AddHandler System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged, New System.Net.NetworkInformation.NetworkAvailabilityChangedEventHandler(AddressOf NetworkChange_NetworkAvailabilityChanged)
         KondisiAwal()

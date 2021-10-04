@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports System.Net.Http
 Imports Microsoft.AspNetCore.SignalR.Client
 Public Class Form1
     Dim Conn As SqlConnection
@@ -8,7 +7,6 @@ Public Class Form1
     Dim Cmd As SqlCommand
     Public _divisi As String = "GWR"
     Dim Title As String = "Data Karyawan"
-    'Dim App As String = "WFA"
     Dim RD As SqlDataReader
     Dim _signalRService As SignalRService = New SignalRService()
     Dim LokasiDB As String
@@ -28,15 +26,7 @@ Public Class Form1
         dvT0Karyawan.DataSource = (Ds.Tables("T1Karyawan"))
         txtNama.Text = Nothing
     End Sub
-    Sub GetKaryawanById(IdKaryawan As Long)
-        Koneksi()
-        Da = New SqlDataAdapter("select * from T1Karyawan where id= '" & IdKaryawan & "'", Conn)
-        Ds = New DataSet
-        Ds.Clear()
-        Da.Fill(Ds, "T1Karyawan")
-        dvT0Karyawan.DataSource = (Ds.Tables("T1Karyawan"))
-        txtNama.Text = Nothing
-    End Sub
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DataGridView.CheckForIllegalCrossThreadCalls = False
         ConnectSignalR()
@@ -55,11 +45,14 @@ Public Class Form1
             .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
         End With
     End Sub
+
+    'Method untuk memulai koneksi ke signalR server
     Async Sub ConnectSignalR()
         _signalRService.ReceiveMessage(AddressOf OnDataBerubah)
         Await _signalRService.Connect(_divisi)
     End Sub
 
+    'Method untuk menangani perubahan data
     Private Sub OnDataBerubah(obj As SignalRService.ClientMessage)
         NotifyIcon1.Icon = SystemIcons.Information
         NotifyIcon1.Visible = True
@@ -67,19 +60,22 @@ Public Class Form1
         KondisiAwal()
     End Sub
 
+    'Deteksi Koneksi Internet
     Private Async Sub NetworkChange_NetworkAvailabilityChanged(ByVal sender As Object, ByVal e As System.Net.NetworkInformation.NetworkAvailabilityEventArgs)
         Try
             If e.IsAvailable Then
                 Koneksi()
-                Await _signalRService.Connect(_divisi)
+                ConnectSignalR()
                 MessageBox.Show("Anda kembali terhubung ke internet")
             Else
-                MessageBox.Show("Koneksi anda terputus dari internet")
+                MessageBox.Show("Koneksi anda tidak stabil, anda mungkin tidak dapat menerima notifikasi dan pembaruan data. Mohon Periksa kembali koneksi internet anda.")
             End If
         Catch ex As Exception
-            MessageBox.Show(ex.ToString())
+            MessageBox.Show(ex.Message)
         End Try
     End Sub
+
+    'Method Insert
     Private Async Sub btnInput_Click(sender As Object, e As EventArgs) Handles btnInput.Click
         Dim MyValue = New Random()
         Dim id = MyValue.Next(1, 10000)
@@ -87,30 +83,35 @@ Public Class Form1
         Dim Simpan As String = "Insert into T1Karyawan (Idkaryawan,NamaLengkap) values('" & id & "' ,'" & txtNama.Text & "')"
         Cmd = New SqlCommand(Simpan, Conn)
         Cmd.ExecuteNonQuery()
-        Await _signalRService.SendMessage(Title, "insert", False, id)
+        Await _signalRService.SendMessage(Title, "insert", False, id) 'SendMessage ke signalR server
         MessageBox.Show("Data Berhasil Disimpan")
         Call KondisiAwal()
     End Sub
+
     Private Sub dvT0Karyawan_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dvT0Karyawan.CellClick
         txtNama.Text = dvT0Karyawan.Rows(e.RowIndex).Cells(1).Value
         txtId.Text = dvT0Karyawan.Rows(e.RowIndex).Cells(0).Value
     End Sub
+
+    'Method untuk update data
     Private Async Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
         Call Koneksi()
         Dim Edit As String = "update T1Karyawan set NamaLengkap = '" & txtNama.Text & "' where IdKaryawan = '" & txtId.Text & "'"
         Cmd = New SqlCommand(Edit, Conn)
         Cmd.ExecuteNonQuery()
-        Await _signalRService.SendMessage(Title, "update", False, txtId.Text)
+        Await _signalRService.SendMessage(Title, "update", False, txtId.Text) 'SendMessage ke signalR server
         MessageBox.Show("Data '" & txtNama.Text & "' Berhasil Di Edit")
         Call KondisiAwal()
     End Sub
+
+    'Method untuk delete data
     Private Async Sub btnHapus_Click(sender As Object, e As EventArgs) Handles btnHapus.Click
         Call Koneksi()
         Dim CMD As SqlCommand
         Dim hapus As String = "delete From T1Karyawan  where IdKaryawan='" & txtId.Text & "'"
         CMD = New SqlCommand(hapus, Conn)
         CMD.ExecuteNonQuery()
-        Await _signalRService.SendMessage(Title, "delete", False, txtId.Text)
+        Await _signalRService.SendMessage(Title, "delete", False, txtId.Text) 'SendMessage ke signalR server
         MessageBox.Show("Data '" & txtNama.Text & "' Berhasil diHapus")
         Call KondisiAwal()
     End Sub

@@ -4,17 +4,18 @@ Imports Microsoft.AspNetCore.SignalR.Client
 Public Class SignalRService
     Private WithEvents hubConnection As HubConnection
     Public _divisi As String = ""
-    Public Sub New() ''construnctor
+    Public Sub New() 'constructor
         Dim client As HttpClient = New HttpClient()
         client.BaseAddress = New Uri("https://newfcsignalr.azurewebsites.net/chatHub")
         hubConnection = New HubConnectionBuilder().WithUrl(client.BaseAddress).Build()
     End Sub
-    'CONNECT KE SIGNALR'
+
     Public Async Function Connect(divisi As String) As Task
         _divisi = divisi
         Await hubConnection.StartAsync()
         Await hubConnection.InvokeAsync("OnConnect", divisi)
     End Function
+
     Public Async Function Disconnect() As Task
         Await hubConnection.InvokeAsync("OnDisconnect", _divisi)
         Await hubConnection.StopAsync()
@@ -36,6 +37,7 @@ Public Class SignalRService
             Await hubConnection.InvokeAsync("SendMessage", message)
         End If
     End Function
+
     Public Sub ReceiveMessage(ByVal GetMessage As Action(Of ClientMessage), ByVal Optional isBroadcast As Boolean = False)
         If isBroadcast Then
             hubConnection.[On]("BroadcastMessage", GetMessage)

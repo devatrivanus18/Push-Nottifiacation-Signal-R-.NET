@@ -7,7 +7,7 @@ Public Class SignalRService
     Public Sub New() ''construnctor
         Dim client As HttpClient = New HttpClient()
         client.BaseAddress = New Uri("https://newfcsignalr.azurewebsites.net/chatHub")
-        hubConnection = New HubConnectionBuilder().WithUrl(client.BaseAddress).WithAutomaticReconnect().Build()
+        hubConnection = New HubConnectionBuilder().WithUrl(client.BaseAddress).Build()
     End Sub
     'CONNECT KE SIGNALR'
     Public Async Function Connect(divisi As String) As Task
@@ -21,7 +21,7 @@ Public Class SignalRService
     End Function
 
     Public Async Function SendMessage(ByVal title As String, ByVal method As String, ByVal isBroadcast As Boolean, ByVal Optional id As Long = 0) As Task
-        Dim msg = $"xam_{title} {method}"
+        Dim msg = $"WFA_{title} {method}"
         Dim message = New ClientMessage With
             {
                 .Message = msg,

@@ -69,6 +69,7 @@ Public Class Form1
     Private Async Sub NetworkChange_NetworkAvailabilityChanged(ByVal sender As Object, ByVal e As System.Net.NetworkInformation.NetworkAvailabilityEventArgs)
         Try
             If e.IsAvailable Then
+                Koneksi()
                 Await _signalRService.Connect(_divisi)
                 MessageBox.Show("Anda kembali terhubung ke internet")
             Else

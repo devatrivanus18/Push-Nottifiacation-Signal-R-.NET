@@ -27,65 +27,51 @@ Partial Class Form1
         Me.txtNama = New System.Windows.Forms.TextBox()
         Me.btnInput = New System.Windows.Forms.Button()
         Me.btnEdit = New System.Windows.Forms.Button()
-        Me.btnHapus = New System.Windows.Forms.Button()
-        Me.btnTutup = New System.Windows.Forms.Button()
         Me.dvT0Karyawan = New System.Windows.Forms.DataGridView()
         Me.txtId = New System.Windows.Forms.Label()
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.btnHapus = New System.Windows.Forms.Button()
+        Me.btn_Batal = New System.Windows.Forms.Button()
         CType(Me.dvT0Karyawan, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
         Me.Label1.Location = New System.Drawing.Point(13, 19)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(49, 20)
+        Me.Label1.Size = New System.Drawing.Size(64, 28)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Nama"
         '
         'txtNama
         '
-        Me.txtNama.Location = New System.Drawing.Point(124, 12)
+        Me.txtNama.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.txtNama.Location = New System.Drawing.Point(100, 19)
         Me.txtNama.Name = "txtNama"
-        Me.txtNama.Size = New System.Drawing.Size(394, 27)
+        Me.txtNama.Size = New System.Drawing.Size(392, 34)
         Me.txtNama.TabIndex = 1
         '
         'btnInput
         '
-        Me.btnInput.Location = New System.Drawing.Point(17, 58)
+        Me.btnInput.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.btnInput.Location = New System.Drawing.Point(100, 58)
         Me.btnInput.Name = "btnInput"
-        Me.btnInput.Size = New System.Drawing.Size(94, 29)
+        Me.btnInput.Size = New System.Drawing.Size(80, 46)
         Me.btnInput.TabIndex = 2
         Me.btnInput.Text = "Input"
         Me.btnInput.UseVisualStyleBackColor = True
         '
         'btnEdit
         '
-        Me.btnEdit.Location = New System.Drawing.Point(117, 58)
+        Me.btnEdit.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.btnEdit.Location = New System.Drawing.Point(203, 59)
         Me.btnEdit.Name = "btnEdit"
-        Me.btnEdit.Size = New System.Drawing.Size(94, 29)
+        Me.btnEdit.Size = New System.Drawing.Size(76, 46)
         Me.btnEdit.TabIndex = 2
         Me.btnEdit.Text = "Edit"
         Me.btnEdit.UseVisualStyleBackColor = True
-        '
-        'btnHapus
-        '
-        Me.btnHapus.Location = New System.Drawing.Point(217, 58)
-        Me.btnHapus.Name = "btnHapus"
-        Me.btnHapus.Size = New System.Drawing.Size(94, 29)
-        Me.btnHapus.TabIndex = 2
-        Me.btnHapus.Text = "Hapus"
-        Me.btnHapus.UseVisualStyleBackColor = True
-        '
-        'btnTutup
-        '
-        Me.btnTutup.Location = New System.Drawing.Point(317, 58)
-        Me.btnTutup.Name = "btnTutup"
-        Me.btnTutup.Size = New System.Drawing.Size(94, 29)
-        Me.btnTutup.TabIndex = 2
-        Me.btnTutup.Text = "Tutup"
-        Me.btnTutup.UseVisualStyleBackColor = True
         '
         'dvT0Karyawan
         '
@@ -98,15 +84,16 @@ Partial Class Form1
         Me.dvT0Karyawan.Name = "dvT0Karyawan"
         Me.dvT0Karyawan.RowHeadersWidth = 51
         Me.dvT0Karyawan.RowTemplate.Height = 29
-        Me.dvT0Karyawan.Size = New System.Drawing.Size(1816, 344)
+        Me.dvT0Karyawan.Size = New System.Drawing.Size(503, 770)
         Me.dvT0Karyawan.TabIndex = 3
         '
         'txtId
         '
         Me.txtId.AutoSize = True
-        Me.txtId.Location = New System.Drawing.Point(582, 19)
+        Me.txtId.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.txtId.Location = New System.Drawing.Point(13, 66)
         Me.txtId.Name = "txtId"
-        Me.txtId.Size = New System.Drawing.Size(22, 20)
+        Me.txtId.Size = New System.Drawing.Size(29, 28)
         Me.txtId.TabIndex = 4
         Me.txtId.Text = "id"
         '
@@ -115,14 +102,34 @@ Partial Class Form1
         Me.NotifyIcon1.Text = "NotifyIcon1"
         Me.NotifyIcon1.Visible = True
         '
+        'btnHapus
+        '
+        Me.btnHapus.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.btnHapus.Location = New System.Drawing.Point(304, 58)
+        Me.btnHapus.Name = "btnHapus"
+        Me.btnHapus.Size = New System.Drawing.Size(80, 47)
+        Me.btnHapus.TabIndex = 2
+        Me.btnHapus.Text = "Hapus"
+        Me.btnHapus.UseVisualStyleBackColor = True
+        '
+        'btn_Batal
+        '
+        Me.btn_Batal.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.btn_Batal.Location = New System.Drawing.Point(412, 57)
+        Me.btn_Batal.Name = "btn_Batal"
+        Me.btn_Batal.Size = New System.Drawing.Size(80, 47)
+        Me.btn_Batal.TabIndex = 5
+        Me.btn_Batal.Text = "Batal"
+        Me.btn_Batal.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1840, 690)
+        Me.ClientSize = New System.Drawing.Size(527, 893)
+        Me.Controls.Add(Me.btn_Batal)
         Me.Controls.Add(Me.txtId)
         Me.Controls.Add(Me.dvT0Karyawan)
-        Me.Controls.Add(Me.btnTutup)
         Me.Controls.Add(Me.btnHapus)
         Me.Controls.Add(Me.btnEdit)
         Me.Controls.Add(Me.btnInput)
@@ -140,9 +147,9 @@ Partial Class Form1
     Friend WithEvents txtNama As TextBox
     Friend WithEvents btnInput As Button
     Friend WithEvents btnEdit As Button
-    Friend WithEvents btnHapus As Button
-    Friend WithEvents btnTutup As Button
     Friend WithEvents dvT0Karyawan As DataGridView
     Friend WithEvents txtId As Label
     Friend WithEvents NotifyIcon1 As NotifyIcon
+    Friend WithEvents btnHapus As Button
+    Friend WithEvents btn_Batal As Button
 End Class

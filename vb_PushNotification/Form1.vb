@@ -38,6 +38,7 @@ Public Class Form1
         txtNama.Text = Nothing
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Control.CheckForIllegalCrossThreadCalls = False
         ConnectSignalR()
         AddHandler System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged, New System.Net.NetworkInformation.NetworkAvailabilityChangedEventHandler(AddressOf NetworkChange_NetworkAvailabilityChanged)
         KondisiAwal()
@@ -63,7 +64,7 @@ Public Class Form1
         NotifyIcon1.Icon = SystemIcons.Information
         NotifyIcon1.Visible = True
         NotifyIcon1.ShowBalloonTip(5000, obj.Method, obj.Message, ToolTipIcon.Info)
-        Call KondisiAwal()
+        KondisiAwal()
     End Sub
 
     Private Async Sub NetworkChange_NetworkAvailabilityChanged(ByVal sender As Object, ByVal e As System.Net.NetworkInformation.NetworkAvailabilityEventArgs)

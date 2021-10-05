@@ -65,7 +65,7 @@ Public Class Form1
         Try
             If e.IsAvailable Then
                 Koneksi()
-                ConnectSignalR()
+                Await _signalRService.Connect(_divisi)
                 MessageBox.Show("Anda kembali terhubung ke internet")
             Else
                 MessageBox.Show("Koneksi anda tidak stabil, anda mungkin tidak dapat menerima notifikasi dan pembaruan data. Mohon Periksa kembali koneksi internet anda.")

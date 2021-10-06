@@ -57,7 +57,7 @@ Public Class SignalRService
         Public Property IsiPesan As String
         Public Property JenisPesan As String
         Public Property Id_PrimaryKey As Object
-        Public Property NamaHalaman As String
+        Public Property NamaHalaman As String 'Digunakan di Xamarin, untuk redirect ke halaman tertentu ketika user klik notifikasi di status bar.
 
     End Class
 End Class

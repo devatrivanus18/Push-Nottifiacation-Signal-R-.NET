@@ -56,7 +56,7 @@ Public Class Form1
     Private Sub OnDataBerubah(obj As SignalRService.ClientMessage)
         NotifyIcon1.Icon = SystemIcons.Information
         NotifyIcon1.Visible = True
-        NotifyIcon1.ShowBalloonTip(5000, obj.Method, obj.Message, ToolTipIcon.Info)
+        NotifyIcon1.ShowBalloonTip(5000, obj.JenisPesan, obj.IsiPesan, ToolTipIcon.Info)
         KondisiAwal()
     End Sub
 

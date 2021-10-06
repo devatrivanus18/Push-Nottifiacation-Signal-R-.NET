@@ -20,7 +20,7 @@ Public Class SignalRService
     End Function
 
     Public Async Function StopKoneksi() As Task
-        Await hc.InvokeAsync("OnDisconnect", _divisi)
+        Await hc.InvokeAsync("StopKoneksi", _divisi)
         Await hc.StopAsync()
     End Function
 
@@ -30,10 +30,10 @@ Public Class SignalRService
         Dim isiPesan = $"WFA_{namaTabel} {method}"
         Dim Pesan = New ClientMessage With
             {
-                .Message = isiPesan,
-                .Method = method,
+                .IsiPesan = isiPesan,
+                .JenisPesan = method,
                 .Divisi = _divisi,
-                .IdKaryawan = Id_PrimaryKey
+                .Id_PrimaryKey = Id_PrimaryKey
             }
 
         If isBroadcast Then
@@ -53,9 +53,11 @@ Public Class SignalRService
 
 
     Public Class ClientMessage
-        Public Property Message As String
         Public Property Divisi As String
-        Public Property Method As String
-        Public Property IdKaryawan As Long
+        Public Property IsiPesan As String
+        Public Property JenisPesan As String
+        Public Property Id_PrimaryKey As Object
+        Public Property NamaHalaman As String
+
     End Class
 End Class

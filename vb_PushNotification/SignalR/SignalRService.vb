@@ -7,7 +7,7 @@ Public Class SignalRService
     Public Sub New() 'constructor
         Dim client As HttpClient = New HttpClient()
         client.BaseAddress = New Uri("https://newfcsignalr.azurewebsites.net/chatHub")
-        hubConnection = New HubConnectionBuilder().WithUrl(client.BaseAddress).WithAutomaticReconnect.Build()
+        hubConnection = New HubConnectionBuilder().WithUrl(client.BaseAddress).Build()
     End Sub
 
     Public Async Function Connect(divisi As String) As Task

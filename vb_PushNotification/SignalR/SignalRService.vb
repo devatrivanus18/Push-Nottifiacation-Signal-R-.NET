@@ -2,50 +2,52 @@
 Imports Microsoft.AspNetCore.SignalR.Client
 
 Public Class SignalRService
-    Private WithEvents hubConnection As HubConnection
+    Private WithEvents hc As HubConnection
     Public _divisi As String = ""
     Public Sub New() 'constructor
         Dim client As HttpClient = New HttpClient()
         client.BaseAddress = New Uri("https://newfcsignalr.azurewebsites.net/chatHub")
-        hubConnection = New HubConnectionBuilder().WithUrl(client.BaseAddress).Build()
+        hc = New HubConnectionBuilder().WithUrl(client.BaseAddress).Build()
     End Sub
 
-    Public Async Function Connect(divisi As String) As Task
+    Public Async Function MulaiKoneksi(divisi As String) As Task
         _divisi = divisi
-        If hubConnection.ConnectionId IsNot Nothing Then
-            Await Disconnect()
+        If hc.ConnectionId IsNot Nothing Then
+            Await StopKoneksi()
         End If
-        Await hubConnection.StartAsync()
-        Await hubConnection.InvokeAsync("OnConnect", divisi)
+        Await hc.StartAsync()
+        Await hc.InvokeAsync("MulaiKoneksi", divisi)
     End Function
 
-    Public Async Function Disconnect() As Task
-        Await hubConnection.InvokeAsync("OnDisconnect", _divisi)
-        Await hubConnection.StopAsync()
+    Public Async Function StopKoneksi() As Task
+        Await hc.InvokeAsync("OnDisconnect", _divisi)
+        Await hc.StopAsync()
     End Function
 
-    Public Async Function SendMessage(ByVal title As String, ByVal method As String, ByVal isBroadcast As Boolean, ByVal Optional id As Long = 0) As Task
-        Dim msg = $"WFA_{title} {method}"
-        Dim message = New ClientMessage With
+    Public Async Function KirimPesan(ByVal namaTabel As String,
+                                     ByVal method As String, ByVal isBroadcast As Boolean,
+                                     ByVal Optional Id_PrimaryKey As Long = 0) As Task
+        Dim isiPesan = $"WFA_{namaTabel} {method}"
+        Dim Pesan = New ClientMessage With
             {
-                .Message = msg,
+                .Message = isiPesan,
                 .Method = method,
                 .Divisi = _divisi,
-                .IdKaryawan = id
+                .IdKaryawan = Id_PrimaryKey
             }
 
         If isBroadcast Then
-            Await hubConnection.InvokeAsync("BroadcastMessage", message)
+            Await hc.InvokeAsync("KirimPesanBroadcast", Pesan)
         Else
-            Await hubConnection.InvokeAsync("SendMessage", message)
+            Await hc.InvokeAsync("KirimPesan", Pesan)
         End If
     End Function
 
-    Public Sub ReceiveMessage(ByVal GetMessage As Action(Of ClientMessage), ByVal Optional isBroadcast As Boolean = False)
+    Public Sub TerimaPesan(ByVal OnDataBerubah As Action(Of ClientMessage), ByVal Optional isBroadcast As Boolean = False)
         If isBroadcast Then
-            hubConnection.[On]("BroadcastMessage", GetMessage)
+            hc.[On]("KirimPesanBroadcast", OnDataBerubah)
         Else
-            hubConnection.[On]("SendMessage", GetMessage)
+            hc.[On]("KirimPesan", OnDataBerubah)
         End If
     End Sub
 

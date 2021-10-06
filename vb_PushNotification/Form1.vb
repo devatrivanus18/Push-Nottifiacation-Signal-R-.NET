@@ -48,8 +48,8 @@ Public Class Form1
 
     'Method untuk memulai koneksi ke signalR server
     Async Sub ConnectSignalR()
-        _signalRService.ReceiveMessage(AddressOf OnDataBerubah)
-        Await _signalRService.Connect(_divisi)
+        _signalRService.TerimaPesan(AddressOf OnDataBerubah)
+        Await _signalRService.MulaiKoneksi(_divisi)
     End Sub
 
     'Method untuk menangani perubahan data
@@ -65,7 +65,7 @@ Public Class Form1
         Try
             If e.IsAvailable Then
                 Koneksi()
-                Await _signalRService.Connect(_divisi)
+                Await _signalRService.MulaiKoneksi(_divisi)
                 MessageBox.Show("Anda kembali terhubung ke internet")
             Else
                 MessageBox.Show("Koneksi anda tidak stabil, anda mungkin tidak dapat menerima notifikasi dan pembaruan data. Mohon Periksa kembali koneksi internet anda.")
@@ -78,12 +78,12 @@ Public Class Form1
     'Method Insert
     Private Async Sub btnInput_Click(sender As Object, e As EventArgs) Handles btnInput.Click
         Dim MyValue = New Random()
-        Dim id = MyValue.Next(1, 10000)
+        Dim id = MyValue.Next(1, 10000) 'Id yang dikirim ke SignalR untuk reload data by id di grpc
         Call Koneksi()
         Dim Simpan As String = "Insert into T1Karyawan (Idkaryawan,NamaLengkap) values('" & id & "' ,'" & txtNama.Text & "')"
         Cmd = New SqlCommand(Simpan, Conn)
         Cmd.ExecuteNonQuery()
-        Await _signalRService.SendMessage(Title, "insert", False, id) 'SendMessage ke signalR server
+        Await _signalRService.KirimPesan(Title, "insert", False, id) 'SendMessage ke signalR server
         MessageBox.Show("Data Berhasil Disimpan")
         Call KondisiAwal()
     End Sub
@@ -99,7 +99,7 @@ Public Class Form1
         Dim Edit As String = "update T1Karyawan set NamaLengkap = '" & txtNama.Text & "' where IdKaryawan = '" & txtId.Text & "'"
         Cmd = New SqlCommand(Edit, Conn)
         Cmd.ExecuteNonQuery()
-        Await _signalRService.SendMessage(Title, "update", False, txtId.Text) 'SendMessage ke signalR server
+        Await _signalRService.KirimPesan(Title, "update", False, txtId.Text) 'SendMessage ke signalR server
         MessageBox.Show("Data '" & txtNama.Text & "' Berhasil Di Edit")
         Call KondisiAwal()
     End Sub
@@ -111,7 +111,7 @@ Public Class Form1
         Dim hapus As String = "delete From T1Karyawan  where IdKaryawan='" & txtId.Text & "'"
         CMD = New SqlCommand(hapus, Conn)
         CMD.ExecuteNonQuery()
-        Await _signalRService.SendMessage(Title, "delete", False, txtId.Text) 'SendMessage ke signalR server
+        Await _signalRService.KirimPesan(Title, "delete", False, txtId.Text) 'SendMessage ke signalR server
         MessageBox.Show("Data '" & txtNama.Text & "' Berhasil diHapus")
         Call KondisiAwal()
     End Sub

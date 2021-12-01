@@ -32,6 +32,7 @@ Partial Class Form1
         Me.NotifyIcon1 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.btnHapus = New System.Windows.Forms.Button()
         Me.btn_Batal = New System.Windows.Forms.Button()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         CType(Me.dvT0Karyawan, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -80,7 +81,7 @@ Partial Class Form1
         Me.dvT0Karyawan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.dvT0Karyawan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dvT0Karyawan.GridColor = System.Drawing.SystemColors.ButtonShadow
-        Me.dvT0Karyawan.Location = New System.Drawing.Point(12, 111)
+        Me.dvT0Karyawan.Location = New System.Drawing.Point(13, 110)
         Me.dvT0Karyawan.Name = "dvT0Karyawan"
         Me.dvT0Karyawan.RowHeadersWidth = 51
         Me.dvT0Karyawan.RowTemplate.Height = 29
@@ -122,11 +123,15 @@ Partial Class Form1
         Me.btn_Batal.Text = "Batal"
         Me.btn_Batal.UseVisualStyleBackColor = True
         '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(527, 893)
+        Me.ClientSize = New System.Drawing.Size(1175, 893)
         Me.Controls.Add(Me.btn_Batal)
         Me.Controls.Add(Me.txtId)
         Me.Controls.Add(Me.dvT0Karyawan)
@@ -152,4 +157,5 @@ Partial Class Form1
     Friend WithEvents NotifyIcon1 As NotifyIcon
     Friend WithEvents btnHapus As Button
     Friend WithEvents btn_Batal As Button
+    Friend WithEvents OpenFileDialog1 As OpenFileDialog
 End Class

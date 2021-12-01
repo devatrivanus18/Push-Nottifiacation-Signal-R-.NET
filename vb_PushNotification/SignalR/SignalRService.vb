@@ -5,8 +5,11 @@ Public Class SignalRService
     Private WithEvents hc As HubConnection
     Public _divisi As String = ""
     Public Sub New() 'constructor
-        Dim client As HttpClient = New HttpClient()
-        client.BaseAddress = New Uri("https://newfcsignalr.azurewebsites.net/chatHub")
+        Dim clientHandler As HttpClientHandler = New HttpClientHandler()
+        clientHandler.ServerCertificateCustomValidationCallback = Function(sender, cert, chain, sslPolicyErrors) True
+        Dim client As HttpClient = New HttpClient(clientHandler)
+        client.BaseAddress = New Uri("https://assignalrserver.azurewebsites.net/chatHub")
+        'client.BaseAddress = New Uri("https://localhost:44380/chatHub")
         hc = New HubConnectionBuilder().WithUrl(client.BaseAddress).Build()
     End Sub
 
